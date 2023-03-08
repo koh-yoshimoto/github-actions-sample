@@ -21,12 +21,15 @@ jobs:
 
     - name: Get Dependencies
       run: go mod tidy
+      working-directory: ./api
+
 
     - name: Build
       run: go build main.go
+      working-directory: ./api
       
     - name: Zip
-      run: zip function.zip main
+      run: zip function.zip ./api/main
 
     - name: Deploy
       uses: appleboy/lambda-action@master
