@@ -25,11 +25,12 @@ jobs:
 
 
     - name: Build
-      run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./main ./main.go
+      run: GOOS=linux GOARCH=amd64 go build -o ./main ./main.go
       working-directory: ./api
       
     - name: Zip
-      run: zip function.zip ./api/main
+      run: zip function.zip main
+      working-directory: ./api
 
     - name: Deploy
       uses: appleboy/lambda-action@master
@@ -38,4 +39,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: go-sample-function
-          zip_file: function.zip
+          zip_file: ./api/function.zip
