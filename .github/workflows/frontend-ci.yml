@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  FILE_PATTERN: "'src/**/*.{js}'"
-
 jobs:
   eslint:
     runs-on: ubuntu-22.04
@@ -20,7 +17,6 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        working-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
         working-directory: ./web
@@ -38,7 +34,6 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        working-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
         working-directory: ./web
@@ -56,7 +51,6 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        working-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
         working-directory: ./web
