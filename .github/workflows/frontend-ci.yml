@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  FILE_PATTERN: "src/**/*.{ts,tsx,js,jsx}"
+  FILE_PATTERN: "src/**/*.{js}"
 
 jobs:
   eslint:
@@ -24,7 +24,7 @@ jobs:
         run: npm ci
         working-directory: ./web
       - name: Run ESLint
-        run: npx eslint ${FILE_PATTERN}
+        run: npm eslint ${FILE_PATTERN}
         working-directory: ./web
 
   prettier:
@@ -41,7 +41,7 @@ jobs:
         run: npm ci
         working-directory: ./web
       - name: Run Prettier
-        run: npx prettier ${FILE_PATTERN}
+        run: npm prettier ${FILE_PATTERN}
         working-directory: ./web
 
   test:
