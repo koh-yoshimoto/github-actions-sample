@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  FILE_PATTERN: "web/src/**/*.{ts,tsx,js,jsx}"
+  FILE_PATTERN: "src/**/*.{ts,tsx,js,jsx}"
 
 jobs:
   eslint:
