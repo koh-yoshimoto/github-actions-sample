@@ -1,33 +1,36 @@
-name: deploy to lambda
+name: Backend CD
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_run:
+    workflows:
+      - Backend CI
+    branches:
+      - main
+    types: 
+      - completed
 
 jobs:
 
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     name: Build Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
     - name: Setup Go
-      uses: actions/setup-go@v2
-
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/setup-go@v3
 
     - name: Get Dependencies
       run: go mod tidy
       working-directory: ./api
 
-
     - name: Build
       run: GOOS=linux GOARCH=amd64 go build -o ./main ./main.go
       working-directory: ./api
-      
+
     - name: Zip
       run: zip function.zip main
       working-directory: ./api
