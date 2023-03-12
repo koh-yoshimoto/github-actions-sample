@@ -1,9 +1,13 @@
 name: Frontend CD
 
 on:
-  workflows: ["Frontend CI"]
-  branches: [ main ]
-  types: [ completed ]
+  workflow_run:
+    workflows:
+      - Frontend CI
+    branches:
+      - main
+    types: 
+      - completed
 
 jobs:
   deploy:

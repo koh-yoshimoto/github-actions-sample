@@ -1,10 +1,13 @@
 name: Frontend CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_run:
+    workflows:
+      - "Frontend CI"
+    branches:
+      - main
+    types: 
+      - completed
 
 env:
   FILE_PATTERN: "web/src/**/*.{ts,tsx,js,jsx}"
@@ -20,13 +23,12 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        worling-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
-        worling-directory: ./web
+        working-directory: ./web
       - name: Run ESLint
         run: npx eslint ${FILE_PATTERN}
-        worling-directory: ./web
+        working-directory: ./web
 
   prettier:
     runs-on: ubuntu-22.04
@@ -38,13 +40,12 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        worling-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
-        worling-directory: ./web
+        working-directory: ./web
       - name: Run Prettier
         run: npx prettier ${FILE_PATTERN}
-        worling-directory: ./web
+        working-directory: ./web
 
   test:
     runs-on: ubuntu-22.04
@@ -56,13 +57,12 @@ jobs:
         with:
           node-version: 18.15.0
           cache: npm
-        worling-directory: ./web
       - name: Clean Install Dependencies
         run: npm ci
-        worling-directory: ./web
+        working-directory: ./web
       - name: Run Test
         run: npm run test
-        worling-directory: ./web
+        working-directory: ./web
 
 
 
