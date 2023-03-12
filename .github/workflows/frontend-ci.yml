@@ -24,7 +24,7 @@ jobs:
         run: npm ci
         working-directory: ./web
       - name: Run ESLint
-        run: npm eslint ${FILE_PATTERN}
+        run: node_modules/.bin/eslint ${FILE_PATTERN}
         working-directory: ./web
 
   prettier:
@@ -41,7 +41,7 @@ jobs:
         run: npm ci
         working-directory: ./web
       - name: Run Prettier
-        run: npm prettier ${FILE_PATTERN}
+        run: node_modules/.bin/prettier ${FILE_PATTERN}
         working-directory: ./web
 
   test:
