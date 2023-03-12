@@ -1,13 +1,10 @@
 name: Frontend CI
 
 on:
-  workflow_run:
-    workflows:
-      - "Frontend CI"
-    branches:
-      - main
-    types: 
-      - completed
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 env:
   FILE_PATTERN: "web/src/**/*.{ts,tsx,js,jsx}"
