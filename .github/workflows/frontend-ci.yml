@@ -24,7 +24,7 @@ jobs:
         run: npm ci
         working-directory: ./web
       - name: Run ESLint
-        run: node_modules/.bin/eslint ${FILE_PATTERN}
+        run: nom run lint
         working-directory: ./web
 
   prettier:
