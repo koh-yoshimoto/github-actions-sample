@@ -7,11 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
+  prettier:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: ./web/package-lock.json
+      - name: Clean Install Dependencies
+        run: npm ci
+        working-directory: ./web
+      - name: Run Prettier
+        run: npm run fmt-check
+        working-directory: ./web
+
   eslint:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: ./web/package-lock.json
       - name: Clean Install Dependencies
         run: npm ci
         working-directory: ./web
@@ -19,23 +43,18 @@ jobs:
         run: npm run lint
         working-directory: ./web
 
-  prettier:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Clean Install Dependencies
-        run: npm ci
-        working-directory: ./web
-      - name: Run Prettier
-        run: node_modules/.bin/prettier ${FILE_PATTERN}
-        working-directory: ./web
 
   test:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: ./web/package-lock.json
       - name: Clean Install Dependencies
         run: npm ci
         working-directory: ./web
