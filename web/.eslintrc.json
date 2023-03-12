@@ -1,0 +1,18 @@
+{
+  "env": {
+    "node": true,
+    "es6": true,
+    "commonjs": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["react", "functional", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier" 
+  ]
+}
