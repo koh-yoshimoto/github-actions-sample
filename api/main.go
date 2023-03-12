@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -24,7 +25,8 @@ type Response struct {
 func HandleRequest(ctx context.Context, payload Payload) (Response, error) {
 	var req Request
 	err := json.NewDecoder(strings.NewReader(payload.Body)).Decode(&req)
-	if err != nil {
+	if err != nil || req.Name == "" {
+		err = errors.New("bad request")
 		return Response{Message: "lambda function failed"}, err
 	}
 
